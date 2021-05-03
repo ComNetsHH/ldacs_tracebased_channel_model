@@ -1,0 +1,7 @@
+inet/*
+/.metadata/
+/intairnet-radio/simulations/results
+/intairnet-radio/.settings
+/intairnet-radio/out
+/intairnet-radio/src/intairnet-radio
+/intairnet-radio/Makefile
