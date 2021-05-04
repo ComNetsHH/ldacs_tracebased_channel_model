@@ -1,0 +1,941 @@
+version 2
+run Wireless01-0-20210504-22:32:46-6764
+attr configname Wireless01
+attr datetime 20210504-22:32:46
+attr experiment Wireless01
+attr inifile omnetpp.ini
+attr iterationvars ""
+attr iterationvarsf ""
+attr measurement ""
+attr network simple_wireless
+attr processid 6764
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+param *.host*.ipv4.arp.typename "\"GlobalArp\""
+param *.hostT.numApps 1
+param *.hostT.app[0].typename "\"UdpBasicApp\""
+param *.hostT.app[0].destAddresses "\"hostR\""
+param *.hostT.app[0].destPort 5000
+param *.hostT.app[0].messageLength 1000B
+param *.hostT.app[0].sendInterval exponential(12ms)
+param *.hostT.app[0].packetName "\"UDPData\""
+param *.hostR.numApps 1
+param *.hostR.app[0].typename "\"UdpSink\""
+param *.hostR.app[0].localPort 5000
+param *.host*.wlan[0].typename "\"WirelessInterface\""
+param *.host*.wlan[0].radio.typename "\"UnitDiskRadioCustomized\""
+param *.host*.wlan[0].mac.typename "\"AckingMac\""
+param *.host*.wlan[0].mac.useAck false
+param *.host*.wlan[0].mac.fullDuplex false
+param *.host*.wlan[0].mac.headerLength 23B
+param *.host*.**.bitrate 1Mbps
+param *.host*.wlan[0].radio.transmitter.communicationRange 320m
+param *.hostT.wlan[0].radio.displayCommunicationRange true
+param *.hostR.mobility.typename "\"LinearMobility\""
+param *.hostR.mobility.speed 15mps
+param *.hostR.mobility.initialMovementHeading 270deg
+param *.hostT.mobility.typename "\"LinearMobility\""
+param *.hostT.mobility.speed 1mps
+param *.hostT.mobility.initialMovementHeading 270deg
+param *.host*.wlan[0].radio.receiver.LinearMobility "\"2\""
+param *.host*.wlan[0].radio.receiver.ignoreInterference true
+param *.host*.wlan[0].radio.transmitter.interferenceRange 500m
+param *.hostT.wlan[0].radio.displayInterferenceRange true
+param *.host*.wlan[0].radio.receiver.errorModel.packetErrorRate 0.6
+
+scalar simple_wireless.radioMedium.propagation "Arrival computation count" 1574
+scalar simple_wireless.radioMedium "transmission count" 1574
+scalar simple_wireless.radioMedium "signal send count" 1574
+scalar simple_wireless.radioMedium "reception computation count" 1574
+scalar simple_wireless.radioMedium "interference computation count" 6296
+scalar simple_wireless.radioMedium "reception decision computation count" 646
+scalar simple_wireless.radioMedium "listening decision computation count" 4076
+scalar simple_wireless.radioMedium "reception cache hit" 80.886460230723
+attr unit %
+scalar simple_wireless.radioMedium "interference cache hit" 66.666666666667
+attr unit %
+scalar simple_wireless.radioMedium "noise cache hit" 0
+attr unit %
+scalar simple_wireless.radioMedium "snir cache hit" 50
+attr unit %
+scalar simple_wireless.radioMedium "reception decision cache hit" 50
+attr unit %
+scalar simple_wireless.radioMedium "reception result cache hit" 0
+attr unit %
+scalar simple_wireless.hostT.lo[0].lo rcvdPkFromHl:count 0
+attr interpolationmode none
+attr source packetReceivedFromUpper
+attr title "packets received from higher layer, count"
+scalar simple_wireless.hostT.lo[0].lo rcvdPkFromHl:sum(packetBytes) 0
+attr interpolationmode none
+attr source packetReceivedFromUpper
+attr title "packets received from higher layer, sum(packetBytes)"
+scalar simple_wireless.hostT.lo[0].lo passedUpPk:count 0
+attr interpolationmode none
+attr source packetSentToUpper
+attr title "packets passed to higher layer, count"
+scalar simple_wireless.hostT.lo[0].lo passedUpPk:sum(packetBytes) 0
+attr interpolationmode none
+attr source packetSentToUpper
+attr title "packets passed to higher layer, sum(packetBytes)"
+scalar simple_wireless.hostT.wlan[0].mac.queue packetPopped:count 1574
+attr interpolationmode none
+attr title "packet popped, count"
+scalar simple_wireless.hostT.wlan[0].mac.queue packetPopped:sum(packetBytes) 1618072
+attr interpolationmode none
+attr title "packet popped, sum(packetBytes)"
+statistic simple_wireless.hostT.wlan[0].mac.queue queueingTime:histogram
+field count 1574
+field mean 0.0092237370003875
+field stddev 0.011782396928438
+field min 0
+field max 0.067666639176
+field sum 14.51816203861
+field sqrsum 0.35228324049074
+attr interpolationmode none
+attr source queueingTime(packetPopped)
+attr title "queueing times, histogram"
+attr unit s
+bin	-inf	0
+bin	0	559
+bin	0.001	51
+bin	0.002	49
+bin	0.003	42
+bin	0.004	74
+bin	0.005	46
+bin	0.006	59
+bin	0.007	85
+bin	0.008	61
+bin	0.009	35
+bin	0.01	36
+bin	0.011	34
+bin	0.012	21
+bin	0.013	35
+bin	0.014	18
+bin	0.015	26
+bin	0.016	20
+bin	0.017	26
+bin	0.018	28
+bin	0.019	31
+bin	0.02	12
+bin	0.021	13
+bin	0.022	12
+bin	0.023	21
+bin	0.024	9
+bin	0.025	19
+bin	0.026	17
+bin	0.027	16
+bin	0.028	10
+bin	0.029	10
+bin	0.03	9
+bin	0.031	3
+bin	0.032	6
+bin	0.033	7
+bin	0.034	4
+bin	0.035	10
+bin	0.036	6
+bin	0.037	3
+bin	0.038	2
+bin	0.039	2
+bin	0.04	4
+bin	0.041	3
+bin	0.042	3
+bin	0.043	4
+bin	0.044	1
+bin	0.045	1
+bin	0.046	3
+bin	0.047	3
+bin	0.048	1
+bin	0.049	2
+bin	0.05	3
+bin	0.051	2
+bin	0.052	0
+bin	0.053	0
+bin	0.054	3
+bin	0.055	1
+bin	0.056	2
+bin	0.057	0
+bin	0.058	1
+bin	0.059	5
+bin	0.06	0
+bin	0.061	2
+bin	0.062	1
+bin	0.063	0
+bin	0.064	0
+bin	0.065	0
+bin	0.066	0
+bin	0.067	2
+bin	0.068	0
+scalar simple_wireless.hostT.wlan[0].mac.queue queueLength:max 8
+attr interpolationmode sample-hold
+attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
+attr title "queue length, max"
+scalar simple_wireless.hostT.wlan[0].mac.queue queueLength:timeavg 0.72671894770019
+attr interpolationmode sample-hold
+attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
+attr title "queue length, timeavg"
+scalar simple_wireless.hostT.wlan[0].mac.queue packetPushed:count 1574
+attr interpolationmode none
+attr title "packet pushed, count"
+scalar simple_wireless.hostT.wlan[0].mac.queue packetPushed:sum(packetBytes) 1618072
+attr interpolationmode none
+attr title "packet pushed, sum(packetBytes)"
+scalar simple_wireless.hostT.wlan[0].mac.queue packetDropQueueOverflow:count 0
+attr interpolationmode none
+attr source packetDropReasonIsQueueOverflow(packetDropped)
+attr title "packet drops: queue overflow, count"
+scalar simple_wireless.hostT.wlan[0].mac.queue packetDropQueueOverflow:sum(packetBytes) 0
+attr interpolationmode none
+attr source packetDropReasonIsQueueOverflow(packetDropped)
+attr title "packet drops: queue overflow, sum(packetBytes)"
+scalar simple_wireless.hostT.wlan[0].mac.queue packetRemoved:count 0
+attr interpolationmode none
+attr title "packets removed, count"
+scalar simple_wireless.hostT.wlan[0].mac.queue packetRemoved:sum(packetBytes) 0
+attr interpolationmode none
+attr title "packets removed, sum(packetBytes)"
+scalar simple_wireless.hostT.wlan[0].mac rcvdPkFromLl:count 0
+attr interpolationmode none
+attr source packetReceivedFromLower
+attr title "packets received from lower layer, count"
+scalar simple_wireless.hostT.wlan[0].mac rcvdPkFromLl:sum(packetBytes) 0
+attr interpolationmode none
+attr source packetReceivedFromLower
+attr title "packets received from lower layer, sum(packetBytes)"
+scalar simple_wireless.hostT.wlan[0].mac sentDownPk:count 1574
+attr interpolationmode none
+attr source packetSentToLower
+attr title "packets sent to lower layer, count"
+scalar simple_wireless.hostT.wlan[0].mac sentDownPk:sum(packetBytes) 1654274
+attr interpolationmode none
+attr source packetSentToLower
+attr title "packets sent to lower layer, sum(packetBytes)"
+scalar simple_wireless.hostT.wlan[0].mac rcvdPkFromHl:count 1574
+attr interpolationmode none
+attr source packetReceivedFromUpper
+attr title "packets received from higher layer, count"
+scalar simple_wireless.hostT.wlan[0].mac rcvdPkFromHl:sum(packetBytes) 1618072
+attr interpolationmode none
+attr source packetReceivedFromUpper
+attr title "packets received from higher layer, sum(packetBytes)"
+scalar simple_wireless.hostT.wlan[0].mac passedUpPk:count 0
+attr interpolationmode none
+attr source packetSentToUpper
+attr title "packets passed to higher layer, count"
+scalar simple_wireless.hostT.wlan[0].mac passedUpPk:sum(packetBytes) 0
+attr interpolationmode none
+attr source packetSentToUpper
+attr title "packets passed to higher layer, sum(packetBytes)"
+scalar simple_wireless.hostT.wlan[0].mac packetDropIncorrectlyReceived:count 0
+attr interpolationmode none
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packet drop: incorrectly received, count"
+scalar simple_wireless.hostT.wlan[0].mac packetDropIncorrectlyReceived:sum(packetBytes) 0
+attr interpolationmode none
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packet drop: incorrectly received, sum(packetBytes)"
+scalar simple_wireless.hostT.wlan[0].mac packetDropInterfaceDown:count 0
+attr interpolationmode none
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drop: interface down, count"
+scalar simple_wireless.hostT.wlan[0].mac packetDropInterfaceDown:sum(packetBytes) 0
+attr interpolationmode none
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drop: interface down, sum(packetBytes)"
+scalar simple_wireless.hostT.wlan[0].mac packetDropNotAddressedToUs:count 0
+attr interpolationmode none
+attr source packetDropReasonIsNotAddressedToUs(packetDropped)
+attr title "packet drop: not addressed to us, count"
+scalar simple_wireless.hostT.wlan[0].mac packetDropNotAddressedToUs:sum(packetBytes) 0
+attr interpolationmode none
+attr source packetDropReasonIsNotAddressedToUs(packetDropped)
+attr title "packet drop: not addressed to us, sum(packetBytes)"
+scalar simple_wireless.hostT.wlan[0].mac linkBroken:count 0
+attr interpolationmode none
+attr source linkBroken
+attr title "link break, count"
+statistic simple_wireless.hostT.wlan[0].radio minSnir:histogram
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr source minimumSnir(packetSentToUpper)
+attr title "Min SNIR, histogram"
+bin	-inf	0
+bin	0	0
+bin	1	0
+statistic simple_wireless.hostT.wlan[0].radio packetErrorRate:histogram
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr source packetErrorRate(packetSentToUpper)
+attr title "Packet error rate, histogram"
+bin	-inf	0
+bin	0	0
+bin	1	0
+statistic simple_wireless.hostT.wlan[0].radio bitErrorRate:histogram
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr source bitErrorRate(packetSentToUpper)
+attr title "Bit error rate, histogram"
+bin	-inf	0
+bin	0	0
+bin	1	0
+statistic simple_wireless.hostT.wlan[0].radio symbolErrorRate:histogram
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr source symbolErrorRate(packetSentToUpper)
+attr title "Symbol error rate, histogram"
+bin	-inf	0
+bin	0	0
+bin	1	0
+scalar simple_wireless.hostT.wlan[0].radio transmissionState:count 6294
+attr interpolationmode sample-hold
+attr source transmissionStateChanged
+attr title "Radio transmission state, count"
+scalar simple_wireless.hostT.wlan[0].radio receptionState:count 3148
+attr interpolationmode sample-hold
+attr source receptionStateChanged
+attr title "Radio reception state, count"
+scalar simple_wireless.hostT.wlan[0].radio radioMode:count 3150
+attr interpolationmode sample-hold
+attr source radioModeChanged
+attr title "Radio mode, count"
+scalar simple_wireless.hostT.ipv4.ip packetDropAddressResolutionFailed:count 0
+attr interpolationmode none
+attr source packetDropReasonIsAddressResolutionFailed(packetDropped)
+attr title "packet drop: address resolution failed, count"
+scalar simple_wireless.hostT.ipv4.ip packetDropAddressResolutionFailed:sum(packetBytes) 0
+attr interpolationmode none
+attr source packetDropReasonIsAddressResolutionFailed(packetDropped)
+attr title "packet drop: address resolution failed, sum(packetBytes)"
+scalar simple_wireless.hostT.ipv4.ip packetDropHopLimitReached:count 0
+attr interpolationmode none
+attr source packetDropReasonIsHopLimitReached(packetDropped)
+attr title "packet drop: hop limit reached, count"
+scalar simple_wireless.hostT.ipv4.ip packetDropHopLimitReached:sum(packetBytes) 0
+attr interpolationmode none
+attr source packetDropReasonIsHopLimitReached(packetDropped)
+attr title "packet drop: hop limit reached, sum(packetBytes)"
+scalar simple_wireless.hostT.ipv4.ip packetDropForwardingDisabled:count 0
+attr interpolationmode none
+attr source packetDropReasonIsForwardingDisabled(packetDropped)
+attr title "packet drop: forwarding disabled, count"
+scalar simple_wireless.hostT.ipv4.ip packetDropForwardingDisabled:sum(packetBytes) 0
+attr interpolationmode none
+attr source packetDropReasonIsForwardingDisabled(packetDropped)
+attr title "packet drop: forwarding disabled, sum(packetBytes)"
+scalar simple_wireless.hostT.ipv4.ip packetDropNoInterfaceFound:count 0
+attr interpolationmode none
+attr source packetDropReasonIsNoInterfaceFound(packetDropped)
+attr title "packet drop: no interface found, count"
+scalar simple_wireless.hostT.ipv4.ip packetDropNoInterfaceFound:sum(packetBytes) 0
+attr interpolationmode none
+attr source packetDropReasonIsNoInterfaceFound(packetDropped)
+attr title "packet drop: no interface found, sum(packetBytes)"
+scalar simple_wireless.hostT.ipv4.ip packetDropNoRouteFound:count 0
+attr interpolationmode none
+attr source packetDropReasonIsNoRouteFound(packetDropped)
+attr title "packet drop: no route found, count"
+scalar simple_wireless.hostT.ipv4.ip packetDropNoRouteFound:sum(packetBytes) 0
+attr interpolationmode none
+attr source packetDropReasonIsNoRouteFound(packetDropped)
+attr title "packet drop: no route found, sum(packetBytes)"
+scalar simple_wireless.hostT.ipv4.ip packetDropUndefined:count 0
+attr interpolationmode none
+attr source packetDropReasonIsUndefined(packetDropped)
+attr title "packet drop: undefined, count"
+scalar simple_wireless.hostT.ipv4.ip packetDropUndefined:sum(packetBytes) 0
+attr interpolationmode none
+attr source packetDropReasonIsUndefined(packetDropped)
+attr title "packet drop: undefined, sum(packetBytes)"
+scalar simple_wireless.hostT.udp packetReceived:count 0
+attr interpolationmode none
+attr source packetReceived
+attr title "packets received, count"
+scalar simple_wireless.hostT.udp packetReceived:sum(packetBytes) 0
+attr interpolationmode none
+attr source packetReceived
+attr title "packets received, sum(packetBytes)"
+scalar simple_wireless.hostT.udp packetSent:count 1574
+attr interpolationmode none
+attr source packetSent
+attr title "packets sent, count"
+scalar simple_wireless.hostT.udp packetSent:sum(packetBytes) 1586592
+attr interpolationmode none
+attr source packetSent
+attr title "packets sent, sum(packetBytes)"
+scalar simple_wireless.hostT.udp passedUpPk:count 0
+attr interpolationmode none
+attr source packetSentToUpper
+attr title "packets passed up, count"
+scalar simple_wireless.hostT.udp droppedPkWrongPort:count 0
+attr interpolationmode none
+attr source packetDropReasonIsNoPortFound(packetDropped)
+attr title "packets dropped (wrong port), count"
+scalar simple_wireless.hostT.udp droppedPkBadChecksum:count 0
+attr interpolationmode none
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packets dropped (checksum error), count"
+scalar simple_wireless.hostT.app[0] "packets sent" 1574
+scalar simple_wireless.hostT.app[0] "packets received" 0
+scalar simple_wireless.hostT.app[0] packetReceived:count 0
+attr interpolationmode none
+attr source packetReceived
+attr title "packets received, count"
+scalar simple_wireless.hostT.app[0] packetReceived:sum(packetBytes) 0
+attr interpolationmode none
+attr source packetReceived
+attr title "packets received, sum(packetBytes)"
+statistic simple_wireless.hostT.app[0] rcvdPkLifetime:stats
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode none
+attr source dataAge(packetReceived)
+attr title "received packet lifetime, stats"
+attr unit s
+scalar simple_wireless.hostT.app[0] packetSent:count 1574
+attr interpolationmode none
+attr source packetSent
+attr title "packets sent, count"
+scalar simple_wireless.hostT.app[0] packetSent:sum(packetBytes) 1574000
+attr interpolationmode none
+attr source packetSent
+attr title "packets sent, sum(packetBytes)"
+scalar simple_wireless.hostR.lo[0].lo rcvdPkFromHl:count 0
+attr interpolationmode none
+attr source packetReceivedFromUpper
+attr title "packets received from higher layer, count"
+scalar simple_wireless.hostR.lo[0].lo rcvdPkFromHl:sum(packetBytes) 0
+attr interpolationmode none
+attr source packetReceivedFromUpper
+attr title "packets received from higher layer, sum(packetBytes)"
+scalar simple_wireless.hostR.lo[0].lo passedUpPk:count 0
+attr interpolationmode none
+attr source packetSentToUpper
+attr title "packets passed to higher layer, count"
+scalar simple_wireless.hostR.lo[0].lo passedUpPk:sum(packetBytes) 0
+attr interpolationmode none
+attr source packetSentToUpper
+attr title "packets passed to higher layer, sum(packetBytes)"
+scalar simple_wireless.hostR.wlan[0].mac.queue packetPopped:count 0
+attr interpolationmode none
+attr title "packet popped, count"
+scalar simple_wireless.hostR.wlan[0].mac.queue packetPopped:sum(packetBytes) 0
+attr interpolationmode none
+attr title "packet popped, sum(packetBytes)"
+statistic simple_wireless.hostR.wlan[0].mac.queue queueingTime:histogram
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode none
+attr source queueingTime(packetPopped)
+attr title "queueing times, histogram"
+attr unit s
+bin	-inf	0
+bin	0	0
+bin	1	0
+scalar simple_wireless.hostR.wlan[0].mac.queue queueLength:max nan
+attr interpolationmode sample-hold
+attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
+attr title "queue length, max"
+scalar simple_wireless.hostR.wlan[0].mac.queue queueLength:timeavg nan
+attr interpolationmode sample-hold
+attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
+attr title "queue length, timeavg"
+scalar simple_wireless.hostR.wlan[0].mac.queue packetPushed:count 0
+attr interpolationmode none
+attr title "packet pushed, count"
+scalar simple_wireless.hostR.wlan[0].mac.queue packetPushed:sum(packetBytes) 0
+attr interpolationmode none
+attr title "packet pushed, sum(packetBytes)"
+scalar simple_wireless.hostR.wlan[0].mac.queue packetDropQueueOverflow:count 0
+attr interpolationmode none
+attr source packetDropReasonIsQueueOverflow(packetDropped)
+attr title "packet drops: queue overflow, count"
+scalar simple_wireless.hostR.wlan[0].mac.queue packetDropQueueOverflow:sum(packetBytes) 0
+attr interpolationmode none
+attr source packetDropReasonIsQueueOverflow(packetDropped)
+attr title "packet drops: queue overflow, sum(packetBytes)"
+scalar simple_wireless.hostR.wlan[0].mac.queue packetRemoved:count 0
+attr interpolationmode none
+attr title "packets removed, count"
+scalar simple_wireless.hostR.wlan[0].mac.queue packetRemoved:sum(packetBytes) 0
+attr interpolationmode none
+attr title "packets removed, sum(packetBytes)"
+scalar simple_wireless.hostR.wlan[0].mac rcvdPkFromLl:count 646
+attr interpolationmode none
+attr source packetReceivedFromLower
+attr title "packets received from lower layer, count"
+scalar simple_wireless.hostR.wlan[0].mac rcvdPkFromLl:sum(packetBytes) 678946
+attr interpolationmode none
+attr source packetReceivedFromLower
+attr title "packets received from lower layer, sum(packetBytes)"
+scalar simple_wireless.hostR.wlan[0].mac sentDownPk:count 0
+attr interpolationmode none
+attr source packetSentToLower
+attr title "packets sent to lower layer, count"
+scalar simple_wireless.hostR.wlan[0].mac sentDownPk:sum(packetBytes) 0
+attr interpolationmode none
+attr source packetSentToLower
+attr title "packets sent to lower layer, sum(packetBytes)"
+scalar simple_wireless.hostR.wlan[0].mac rcvdPkFromHl:count 0
+attr interpolationmode none
+attr source packetReceivedFromUpper
+attr title "packets received from higher layer, count"
+scalar simple_wireless.hostR.wlan[0].mac rcvdPkFromHl:sum(packetBytes) 0
+attr interpolationmode none
+attr source packetReceivedFromUpper
+attr title "packets received from higher layer, sum(packetBytes)"
+scalar simple_wireless.hostR.wlan[0].mac passedUpPk:count 387
+attr interpolationmode none
+attr source packetSentToUpper
+attr title "packets passed to higher layer, count"
+scalar simple_wireless.hostR.wlan[0].mac passedUpPk:sum(packetBytes) 397836
+attr interpolationmode none
+attr source packetSentToUpper
+attr title "packets passed to higher layer, sum(packetBytes)"
+scalar simple_wireless.hostR.wlan[0].mac packetDropIncorrectlyReceived:count 259
+attr interpolationmode none
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packet drop: incorrectly received, count"
+scalar simple_wireless.hostR.wlan[0].mac packetDropIncorrectlyReceived:sum(packetBytes) 272209
+attr interpolationmode none
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packet drop: incorrectly received, sum(packetBytes)"
+scalar simple_wireless.hostR.wlan[0].mac packetDropInterfaceDown:count 0
+attr interpolationmode none
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drop: interface down, count"
+scalar simple_wireless.hostR.wlan[0].mac packetDropInterfaceDown:sum(packetBytes) 0
+attr interpolationmode none
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drop: interface down, sum(packetBytes)"
+scalar simple_wireless.hostR.wlan[0].mac packetDropNotAddressedToUs:count 0
+attr interpolationmode none
+attr source packetDropReasonIsNotAddressedToUs(packetDropped)
+attr title "packet drop: not addressed to us, count"
+scalar simple_wireless.hostR.wlan[0].mac packetDropNotAddressedToUs:sum(packetBytes) 0
+attr interpolationmode none
+attr source packetDropReasonIsNotAddressedToUs(packetDropped)
+attr title "packet drop: not addressed to us, sum(packetBytes)"
+scalar simple_wireless.hostR.wlan[0].mac linkBroken:count 0
+attr interpolationmode none
+attr source linkBroken
+attr title "link break, count"
+statistic simple_wireless.hostR.wlan[0].radio minSnir:histogram
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr source minimumSnir(packetSentToUpper)
+attr title "Min SNIR, histogram"
+bin	-inf	0
+bin	0	0
+bin	1	0
+statistic simple_wireless.hostR.wlan[0].radio packetErrorRate:histogram
+field count 646
+field mean 0
+field stddev 0
+field min 0
+field max 0
+field sum 0
+field sqrsum 0
+attr source packetErrorRate(packetSentToUpper)
+attr title "Packet error rate, histogram"
+bin	-inf	0
+bin	-0.5	0
+bin	-0.48	0
+bin	-0.46	0
+bin	-0.44	0
+bin	-0.42	0
+bin	-0.4	0
+bin	-0.38	0
+bin	-0.36	0
+bin	-0.34	0
+bin	-0.32	0
+bin	-0.3	0
+bin	-0.28	0
+bin	-0.26	0
+bin	-0.24	0
+bin	-0.22	0
+bin	-0.2	0
+bin	-0.18	0
+bin	-0.16	0
+bin	-0.14	0
+bin	-0.12	0
+bin	-0.1	0
+bin	-0.08	0
+bin	-0.06	0
+bin	-0.04	0
+bin	-0.02	0
+bin	0	646
+bin	0.02	0
+bin	0.04	0
+bin	0.06	0
+bin	0.08	0
+bin	0.1	0
+bin	0.12	0
+bin	0.14	0
+bin	0.16	0
+bin	0.18	0
+bin	0.2	0
+bin	0.22	0
+bin	0.24	0
+bin	0.26	0
+bin	0.28	0
+bin	0.3	0
+bin	0.32	0
+bin	0.34	0
+bin	0.36	0
+bin	0.38	0
+bin	0.4	0
+bin	0.42	0
+bin	0.44	0
+bin	0.46	0
+bin	0.48	0
+bin	0.5	0
+statistic simple_wireless.hostR.wlan[0].radio bitErrorRate:histogram
+field count 646
+field mean 0
+field stddev 0
+field min 0
+field max 0
+field sum 0
+field sqrsum 0
+attr source bitErrorRate(packetSentToUpper)
+attr title "Bit error rate, histogram"
+bin	-inf	0
+bin	-0.5	0
+bin	-0.48	0
+bin	-0.46	0
+bin	-0.44	0
+bin	-0.42	0
+bin	-0.4	0
+bin	-0.38	0
+bin	-0.36	0
+bin	-0.34	0
+bin	-0.32	0
+bin	-0.3	0
+bin	-0.28	0
+bin	-0.26	0
+bin	-0.24	0
+bin	-0.22	0
+bin	-0.2	0
+bin	-0.18	0
+bin	-0.16	0
+bin	-0.14	0
+bin	-0.12	0
+bin	-0.1	0
+bin	-0.08	0
+bin	-0.06	0
+bin	-0.04	0
+bin	-0.02	0
+bin	0	646
+bin	0.02	0
+bin	0.04	0
+bin	0.06	0
+bin	0.08	0
+bin	0.1	0
+bin	0.12	0
+bin	0.14	0
+bin	0.16	0
+bin	0.18	0
+bin	0.2	0
+bin	0.22	0
+bin	0.24	0
+bin	0.26	0
+bin	0.28	0
+bin	0.3	0
+bin	0.32	0
+bin	0.34	0
+bin	0.36	0
+bin	0.38	0
+bin	0.4	0
+bin	0.42	0
+bin	0.44	0
+bin	0.46	0
+bin	0.48	0
+bin	0.5	0
+statistic simple_wireless.hostR.wlan[0].radio symbolErrorRate:histogram
+field count 646
+field mean 0
+field stddev 0
+field min 0
+field max 0
+field sum 0
+field sqrsum 0
+attr source symbolErrorRate(packetSentToUpper)
+attr title "Symbol error rate, histogram"
+bin	-inf	0
+bin	-0.5	0
+bin	-0.48	0
+bin	-0.46	0
+bin	-0.44	0
+bin	-0.42	0
+bin	-0.4	0
+bin	-0.38	0
+bin	-0.36	0
+bin	-0.34	0
+bin	-0.32	0
+bin	-0.3	0
+bin	-0.28	0
+bin	-0.26	0
+bin	-0.24	0
+bin	-0.22	0
+bin	-0.2	0
+bin	-0.18	0
+bin	-0.16	0
+bin	-0.14	0
+bin	-0.12	0
+bin	-0.1	0
+bin	-0.08	0
+bin	-0.06	0
+bin	-0.04	0
+bin	-0.02	0
+bin	0	646
+bin	0.02	0
+bin	0.04	0
+bin	0.06	0
+bin	0.08	0
+bin	0.1	0
+bin	0.12	0
+bin	0.14	0
+bin	0.16	0
+bin	0.18	0
+bin	0.2	0
+bin	0.22	0
+bin	0.24	0
+bin	0.26	0
+bin	0.28	0
+bin	0.3	0
+bin	0.32	0
+bin	0.34	0
+bin	0.36	0
+bin	0.38	0
+bin	0.4	0
+bin	0.42	0
+bin	0.44	0
+bin	0.46	0
+bin	0.48	0
+bin	0.5	0
+scalar simple_wireless.hostR.wlan[0].radio transmissionState:count 0
+attr interpolationmode sample-hold
+attr source transmissionStateChanged
+attr title "Radio transmission state, count"
+scalar simple_wireless.hostR.wlan[0].radio receptionState:count 3148
+attr interpolationmode sample-hold
+attr source receptionStateChanged
+attr title "Radio reception state, count"
+scalar simple_wireless.hostR.wlan[0].radio radioMode:count 3
+attr interpolationmode sample-hold
+attr source radioModeChanged
+attr title "Radio mode, count"
+scalar simple_wireless.hostR.ipv4.ip packetDropAddressResolutionFailed:count 0
+attr interpolationmode none
+attr source packetDropReasonIsAddressResolutionFailed(packetDropped)
+attr title "packet drop: address resolution failed, count"
+scalar simple_wireless.hostR.ipv4.ip packetDropAddressResolutionFailed:sum(packetBytes) 0
+attr interpolationmode none
+attr source packetDropReasonIsAddressResolutionFailed(packetDropped)
+attr title "packet drop: address resolution failed, sum(packetBytes)"
+scalar simple_wireless.hostR.ipv4.ip packetDropHopLimitReached:count 0
+attr interpolationmode none
+attr source packetDropReasonIsHopLimitReached(packetDropped)
+attr title "packet drop: hop limit reached, count"
+scalar simple_wireless.hostR.ipv4.ip packetDropHopLimitReached:sum(packetBytes) 0
+attr interpolationmode none
+attr source packetDropReasonIsHopLimitReached(packetDropped)
+attr title "packet drop: hop limit reached, sum(packetBytes)"
+scalar simple_wireless.hostR.ipv4.ip packetDropForwardingDisabled:count 0
+attr interpolationmode none
+attr source packetDropReasonIsForwardingDisabled(packetDropped)
+attr title "packet drop: forwarding disabled, count"
+scalar simple_wireless.hostR.ipv4.ip packetDropForwardingDisabled:sum(packetBytes) 0
+attr interpolationmode none
+attr source packetDropReasonIsForwardingDisabled(packetDropped)
+attr title "packet drop: forwarding disabled, sum(packetBytes)"
+scalar simple_wireless.hostR.ipv4.ip packetDropNoInterfaceFound:count 0
+attr interpolationmode none
+attr source packetDropReasonIsNoInterfaceFound(packetDropped)
+attr title "packet drop: no interface found, count"
+scalar simple_wireless.hostR.ipv4.ip packetDropNoInterfaceFound:sum(packetBytes) 0
+attr interpolationmode none
+attr source packetDropReasonIsNoInterfaceFound(packetDropped)
+attr title "packet drop: no interface found, sum(packetBytes)"
+scalar simple_wireless.hostR.ipv4.ip packetDropNoRouteFound:count 0
+attr interpolationmode none
+attr source packetDropReasonIsNoRouteFound(packetDropped)
+attr title "packet drop: no route found, count"
+scalar simple_wireless.hostR.ipv4.ip packetDropNoRouteFound:sum(packetBytes) 0
+attr interpolationmode none
+attr source packetDropReasonIsNoRouteFound(packetDropped)
+attr title "packet drop: no route found, sum(packetBytes)"
+scalar simple_wireless.hostR.ipv4.ip packetDropUndefined:count 0
+attr interpolationmode none
+attr source packetDropReasonIsUndefined(packetDropped)
+attr title "packet drop: undefined, count"
+scalar simple_wireless.hostR.ipv4.ip packetDropUndefined:sum(packetBytes) 0
+attr interpolationmode none
+attr source packetDropReasonIsUndefined(packetDropped)
+attr title "packet drop: undefined, sum(packetBytes)"
+scalar simple_wireless.hostR.udp packetReceived:count 387
+attr interpolationmode none
+attr source packetReceived
+attr title "packets received, count"
+scalar simple_wireless.hostR.udp packetReceived:sum(packetBytes) 390096
+attr interpolationmode none
+attr source packetReceived
+attr title "packets received, sum(packetBytes)"
+scalar simple_wireless.hostR.udp packetSent:count 0
+attr interpolationmode none
+attr source packetSent
+attr title "packets sent, count"
+scalar simple_wireless.hostR.udp packetSent:sum(packetBytes) 0
+attr interpolationmode none
+attr source packetSent
+attr title "packets sent, sum(packetBytes)"
+scalar simple_wireless.hostR.udp passedUpPk:count 387
+attr interpolationmode none
+attr source packetSentToUpper
+attr title "packets passed up, count"
+scalar simple_wireless.hostR.udp droppedPkWrongPort:count 0
+attr interpolationmode none
+attr source packetDropReasonIsNoPortFound(packetDropped)
+attr title "packets dropped (wrong port), count"
+scalar simple_wireless.hostR.udp droppedPkBadChecksum:count 0
+attr interpolationmode none
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packets dropped (checksum error), count"
+scalar simple_wireless.hostR.app[0] packetReceived:count 387
+attr interpolationmode none
+attr source packetReceived
+attr title "packets received, count"
+scalar simple_wireless.hostR.app[0] packetReceived:sum(packetBytes) 387000
+attr interpolationmode none
+attr source packetReceived
+attr title "packets received, sum(packetBytes)"
+statistic simple_wireless.hostR.app[0] endToEndDelay:histogram
+field count 387
+field mean 0.018314599425636
+field stddev 0.012854822088113
+field min 0.008505000693
+field max 0.076066948082
+field sum 7.087749977721
+field sqrsum 0.19359443172499
+attr interpolationmode none
+attr source dataAge(packetReceived)
+attr title "end-to-end delay, histogram"
+attr unit s
+bin	-inf	0
+bin	0	0
+bin	0.001	0
+bin	0.002	0
+bin	0.003	0
+bin	0.004	0
+bin	0.005	0
+bin	0.006	0
+bin	0.007	0
+bin	0.008	126
+bin	0.009	13
+bin	0.01	20
+bin	0.011	10
+bin	0.012	13
+bin	0.013	12
+bin	0.014	16
+bin	0.015	14
+bin	0.016	26
+bin	0.017	7
+bin	0.018	11
+bin	0.019	6
+bin	0.02	7
+bin	0.021	6
+bin	0.022	5
+bin	0.023	2
+bin	0.024	5
+bin	0.025	5
+bin	0.026	8
+bin	0.027	7
+bin	0.028	6
+bin	0.029	1
+bin	0.03	4
+bin	0.031	4
+bin	0.032	3
+bin	0.033	2
+bin	0.034	2
+bin	0.035	5
+bin	0.036	4
+bin	0.037	4
+bin	0.038	0
+bin	0.039	3
+bin	0.04	3
+bin	0.041	2
+bin	0.042	2
+bin	0.043	2
+bin	0.044	2
+bin	0.045	0
+bin	0.046	1
+bin	0.047	1
+bin	0.048	1
+bin	0.049	0
+bin	0.05	3
+bin	0.051	0
+bin	0.052	0
+bin	0.053	2
+bin	0.054	1
+bin	0.055	1
+bin	0.056	0
+bin	0.057	1
+bin	0.058	0
+bin	0.059	2
+bin	0.06	0
+bin	0.061	0
+bin	0.062	0
+bin	0.063	1
+bin	0.064	2
+bin	0.065	0
+bin	0.066	0
+bin	0.067	2
+bin	0.068	0
+bin	0.069	0
+bin	0.07	0
+bin	0.071	0
+bin	0.072	0
+bin	0.073	0
+bin	0.074	0
+bin	0.075	0
+bin	0.076	1
+bin	0.077	0
+
