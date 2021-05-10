@@ -7,11 +7,10 @@
 
 
 
-namespace inet {
+using namespace inet;
+using namespace physicallayer;
 
-namespace physicallayer {
-
-Define_Module(UnitDiskRadioCustomized);
+Register_Class(UnitDiskRadioCustomized);
 
 Coord position_T;
 
@@ -150,6 +149,3 @@ void UnitDiskRadioCustomized::decapsulate(Packet *packet) const
     packet->addTagIfAbsent<PacketProtocolTag>()->setProtocol(phyHeader->getPayloadProtocol());
 }
 
-} // namespace physicallayer
-
-} // namespace inet

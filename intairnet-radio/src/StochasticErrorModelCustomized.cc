@@ -4,10 +4,6 @@
 using namespace inet::physicallayer;
 using namespace inet;
 
-//namespace inet {
-
-//namespace physicallayer {
-
 Define_Module(StochasticErrorModelCustomized);
 
 StochasticErrorModelCustomized::StochasticErrorModelCustomized() :
@@ -58,7 +54,4 @@ double StochasticErrorModelCustomized::computeSymbolErrorRate(const ISnir *snir,
     EV << "MYMESSAGE" << endl;
     return 0;
 }
- // namespace physicallayer
-
-// namespace inet
 

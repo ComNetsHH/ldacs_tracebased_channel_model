@@ -1,4 +1,4 @@
-package unitdiskCustomized;
+package intairnet_radio;
 
 import inet.mobility.base.MobilityBase;
 import inet.mobility.base.MovingMobilityBase;
