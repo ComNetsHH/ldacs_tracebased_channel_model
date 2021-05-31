@@ -6,9 +6,8 @@
 #include "inet/physicallayer/contract/packetlevel/IErrorModel.h"
 
 
-namespace inet {
-
-namespace physicallayer {
+using namespace inet;
+using namespace physicallayer;
 
 /**
  * Implements the UnitDiskReceiverCustomized model, see the NED file for details.
@@ -36,9 +35,6 @@ class INET_API UnitDiskReceiverCustomized : public ReceiverBase
     virtual const IReceptionResult *computeReceptionResult(const IListening *listening, const IReception *reception, const IInterference *interference, const ISnir *snir, const std::vector<const IReceptionDecision *> *decisions) const override;
 };
 
-} // namespace physicallayer
-
-} // namespace inet
 
 #endif // ifndef __INET_IDEALRECEIVER_H
 

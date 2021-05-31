@@ -3,9 +3,8 @@
 
 #include "inet/physicallayer/base/packetlevel/ErrorModelBase.h"
 
-namespace inet {
-
-namespace physicallayer {
+using namespace inet;
+using namespace physicallayer;
 
 /**
  * Implements the StochasticErrorModelCustomized model, see the NED file for details.
@@ -41,10 +40,6 @@ class INET_API StochasticErrorModelCustomized : public ErrorModelBase
     virtual double computeSymbolErrorRate(const ISnir *snir, IRadioSignal::SignalPart part) const override;
 
 };
-
-} // namespace physicallayer
-
-} // namespace inet
 
 #endif // ifndef __INET_STOCHASTICERRORMODELCUSTOMIZED_H
 

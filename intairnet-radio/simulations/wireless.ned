@@ -1,7 +1,6 @@
 
-package unitdiskCustomized;
+package intairnet_radio.simulations;
 
-package unitdiskCustomized;
 import inet.networklayer.configurator.ipv4.Ipv4NetworkConfigurator;
 import inet.node.inet.WirelessHost;
 import inet.physicallayer.apskradio.packetlevel.ApskScalarRadioMedium;

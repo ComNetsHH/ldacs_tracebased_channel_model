@@ -3,9 +3,8 @@
 
 #include "inet/physicallayer/common/packetlevel/Radio.h"
 
-namespace inet {
-
-namespace physicallayer {
+using namespace inet;
+using namespace physicallayer;
 
 class INET_API UnitDiskRadioCustomized : public Radio
 {
@@ -17,10 +16,6 @@ class INET_API UnitDiskRadioCustomized : public Radio
   public:
     UnitDiskRadioCustomized();
 };
-
-} // namespace physicallayer
-
-} // namespace inet
 
 #endif // ifndef __INET_IDEALRADIO_H
 

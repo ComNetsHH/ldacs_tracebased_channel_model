@@ -16,9 +16,8 @@
 #include "inet/physicallayer/contract/packetlevel/ITransmitter.h"
 #include "inet/physicallayer/contract/packetlevel/ITransmission.h"
 
-
-namespace inet {
-namespace physicallayer {
+using namespace inet;
+using namespace physicallayer;
 
 Define_Module(UnitDiskReceiverCustomized);
 
@@ -164,6 +163,4 @@ const IReceptionResult *UnitDiskReceiverCustomized::computeReceptionResult(const
     return receptionResult;
 }
 
-} // namespace physicallayer
-} // namespace inet
 
