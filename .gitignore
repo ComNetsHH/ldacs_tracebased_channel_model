@@ -5,3 +5,4 @@ inet/*
 /intairnet-radio/out
 /intairnet-radio/src/intairnet-radio
 /intairnet-radio/Makefile
+.DS_Store
