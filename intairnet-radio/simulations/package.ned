@@ -1,3 +1,3 @@
-package intairnet_radio.simulations;
+package mobility_test.simulations;
 
 @license(LGPL);

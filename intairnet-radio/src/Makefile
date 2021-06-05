@@ -1,12 +1,12 @@
 #
-# OMNeT++/OMNEST Makefile for intairnet-radio
+# OMNeT++/OMNEST Makefile for mobility_Test
 #
 # This file was generated with the command:
-#  opp_makemake -f --deep -KINET_PROJ=D:/omnetpp-5.6.1-src-windows/omnetpp-5.6.1/inet4 -DINET_IMPORT -I$$\(INET_PROJ\)/src -L$$\(INET_PROJ\)/src -lINET$$\(D\)
+#  opp_makemake -f --deep -KINET_PROJ=../../inet -DINET_IMPORT -L$$\(INET_PROJ\)/src -lINET$$\(D\)
 #
 
 # Name of target to be created (-o option)
-TARGET = intairnet-radio$(D)$(EXE_SUFFIX)
+TARGET = mobility_Test$(D)$(EXE_SUFFIX)
 TARGET_DIR = .
 
 # User interface (uncomment one) (-u option)
@@ -16,7 +16,7 @@ USERIF_LIBS = $(ALL_ENV_LIBS) # that is, $(TKENV_LIBS) $(QTENV_LIBS) $(CMDENV_LI
 #USERIF_LIBS = $(QTENV_LIBS)
 
 # C++ include paths (with -I)
-INCLUDE_PATH = -I$(INET_PROJ)/src
+INCLUDE_PATH =
 
 # Additional object and library files to link with
 EXTRA_OBJS =
@@ -30,7 +30,7 @@ PROJECTRELATIVE_PATH = src
 O = $(PROJECT_OUTPUT_DIR)/$(CONFIGNAME)/$(PROJECTRELATIVE_PATH)
 
 # Object files for local .cc, .msg and .sm files
-OBJS = $O/StochasticErrorModelCustomized.o $O/UnitDiskRadioCustomized.o $O/UnitDiskReceiverCustomized.o $O/sample_files/IntAirNetReceiver.o
+OBJS =
 
 # Message files
 MSGFILES =
@@ -39,7 +39,7 @@ MSGFILES =
 SMFILES =
 
 # Other makefile variables (-K)
-INET_PROJ=D:/omnetpp-5.6.1-src-windows/omnetpp-5.6.1/inet4
+INET_PROJ=../../inet
 
 #------------------------------------------------------------------------------
 

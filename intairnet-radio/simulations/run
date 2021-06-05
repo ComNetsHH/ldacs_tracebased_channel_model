@@ -1,4 +1,4 @@
 #!/bin/sh
 cd `dirname $0`
-../src/intairnet_radio -n .:../src $*
-# for shared lib, use: opp_run -l ../src/intairnet_radio -n .:../src $*
+../src/mobility_test -n .:../src $*
+# for shared lib, use: opp_run -l ../src/mobility_test -n .:../src $*
