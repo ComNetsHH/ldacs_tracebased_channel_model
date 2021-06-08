@@ -36,8 +36,6 @@ std::ostream& StochasticErrorModelCustomized::printToStream(std::ostream& stream
 double StochasticErrorModelCustomized::computePacketErrorRate(const ISnir *snir, IRadioSignal::SignalPart part) const
 {
     Enter_Method_Silent();
-    EV << "PacketErrorRate = " << packetErrorRate << " \n";
-
     return packetErrorRate;
 }
 

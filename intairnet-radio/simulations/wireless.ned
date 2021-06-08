@@ -35,7 +35,7 @@ network wireless
             @display("p=0,400");
         }
         hostR: <default("WirelessHost")> like INetworkNode {
-            @display("p=182879,400");
+            @display("p=459350,400");
         }
 
 }

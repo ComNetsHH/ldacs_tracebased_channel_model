@@ -16,6 +16,11 @@
 #include "inet/physicallayer/contract/packetlevel/ITransmitter.h"
 #include "inet/physicallayer/contract/packetlevel/ITransmission.h"
 
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
+
 using namespace inet;
 using namespace physicallayer;
 
@@ -55,6 +60,7 @@ bool UnitDiskReceiverCustomized::computeIsReceptionPossible(const IListening *li
 
 bool UnitDiskReceiverCustomized::computeIsReceptionSuccessful(const IListening *listening, const IReception *reception, IRadioSignal::SignalPart part, const IInterference *interference, const ISnir *snir) const
 {
+    //Defining the variables
     double Radio_horizon = 922.06;
     double Tx_power = 50;
     double Tx_antenna_gain = 3;
@@ -75,6 +81,7 @@ bool UnitDiskReceiverCustomized::computeIsReceptionSuccessful(const IListening *
     double Rx_position_y = Rx_position.y;
     double Rx_position_z = Rx_position.z;
     EV << " Current Position of Rx = " << Rx_position << " \n";
+
     //getting the position of the Tx
     auto transmission = check_and_cast<const IReception *>(reception)->getTransmission();
     Coord Tx_position = transmission->getStartPosition();
@@ -88,35 +95,156 @@ bool UnitDiskReceiverCustomized::computeIsReceptionSuccessful(const IListening *
     EV << " distance between Tx and Rx is in meter: " << distance << " \n";// printing to check if the results are correct
     // as the above distance is on meter we are converting to kilometer
     distance = distance/1000;
+
     double Received_Power;
     //comparing distance with Radio Horizon rh(h1, h2)|km = 922.06 to decide for path loss
     if(distance < Radio_horizon){
+
         //calculating path loss using -> 20 log10(d|km · f |MHz) + 32.4478|dB, for d < rh(h1, h2)
         double path_loss =(20*log10(distance*frequency))+32.4478;
         EV << "path loss = " << path_loss << " \n";
+
         //calculating Received_Power
         Received_Power = Tx_power + Tx_antenna_gain - Tx_loss + Rx_antenna_gain - Rx_loss - path_loss;
         EV << " Received Signal Power = " << Received_Power << " \n";
+
         //calculating Signal-to-Noise Ratio SNR(SNRmargin|dB)
         double SNR = Received_Power -(Noise_figure + Thermal_noise_density + 10*log10(Receiver_bandwidth))-10;
-        EV << "  Signal-to-Noise Ratio, SNR= " << SNR << " \n";
+        EV << "Signal-to-Noise Ratio, SNR= " << SNR << " \n";
 
-        //calling the error Model to get packet error rate
-        double packetErrorRate = errorModel->computePacketErrorRate(snir,part);
-        EV << " packetErrorRate= " << packetErrorRate << " \n";
+        //reading the .txt file
+        int line_number=0,f,g,i,j,q,n;
+        int z;
 
-        //deciding a packet is successfully received or not based on packetErrorRate
-        if (packetErrorRate == 0.0){
+        // Creating a text string, which is used to output the text file
+        string myText;
+        double a[100][3];
+
+        // Read from the text file
+        ifstream MyReadFile("per_snr.txt");
+
+        // Use a while loop together with the getline() function to read the file line by line
+        while (getline (MyReadFile, myText)) {
+
+            // finding the position of the first ","
+            for( i = 0; i < myText.length(); i++){
+                if(myText[i]==','){
+                    f = i;
+                    break;
+                }
+            }
+
+            // finding the position of the second ","
+            for( j = i+1; j < myText.length(); j++){
+                if(myText[j]==','){
+                    g = j;
+                }
+            }
+
+            char temp[f];
+            char temp2[g-f];
+
+            //asinging the SNR part of the text file into array a
+            for( q=0;q<f;q++){
+                temp[q]=myText[q];
+            }
+            temp[q]='\0';
+            // convert string to double
+            a[line_number][0]= std::stod(temp);
+            q++;
+
+            //asinging the SNR part of the text file into array a
+            for( i=0;i<g-f-1;i++){
+                temp2[i]=myText[q];
+                q++;
+            }
+            temp2[i]='\0';
+            a[line_number][1]= std::stod(temp2);
+            line_number++;
+        }
+
+        // Closing the file
+        MyReadFile.close();
+
+        //When SNR is > 10 we assume it equal to 10
+        if(SNR > 10)
+            SNR=10;
+
+        //When SNR is < -4 we assume it equal to -4
+        else if(SNR < -4)
+            SNR=-4;
+
+        //finding the corresponding PER of the current SNR when SNR is int
+        double PER;
+        int SNR_is_float = 1;
+        for(int k=0; k<line_number;k++){
+            if(a[k][0]== SNR){
+                PER = a[k][1];
+                EV << "\ncorresponding PER is: ";
+                EV << a[k][1];
+                SNR_is_float =0;
+                break;
+            }
+        }
+
+        //finding the corresponding PER of the current SNR when SNR is a float
+        if(SNR_is_float==1){
+
+            //Separating the int part and decimal part of SNR
+            double SNR_dec_part;
+            int SNR_int_part = (int)SNR;
+            EV << " SNR_int_part= " << SNR_int_part << " \n";
+            if(SNR >= 0){
+                SNR_dec_part = SNR - SNR_int_part;
+                EV << " SNR_dec_part= " << SNR_dec_part << " \n";
+            }
+            else{
+                SNR_dec_part = (SNR - SNR_int_part)*(-1);
+                EV << " SNR_dec_part= " << SNR_dec_part << " \n";
+            }
+
+            //finding the corresponding PER of the current SNR_int_part
+            int k;
+            for(k=0; k<line_number;k++){
+                if(a[k][0]== SNR_int_part){
+                    PER = a[k][1];
+                    EV << "\ncorresponding PER is: ";
+                    EV << a[k][1];
+                    break;
+                }
+            }
+
+            //finding the corresponding PER of the current SNR_decimal_part
+            double fraction_PER;
+            if(SNR_int_part >= 0 && SNR > 0){
+                fraction_PER=a[k+1][1]*SNR_dec_part;
+            }
+            else if(SNR_int_part >= 0 && SNR < 0){
+                fraction_PER=a[k-1][1]*SNR_dec_part;
+            }
+            else{
+                fraction_PER=a[k-1][1]*SNR_dec_part;
+            }
+            EV << " fraction_PER= " << fraction_PER << " \n";
+
+            //adding the PER of the current  SNR_int_part and SNR_decimal_part
+            PER = (1-SNR_dec_part)*PER + fraction_PER;
+            EV << " final_PER= " << PER << " \n";
+
+        }
+
+        //Deciding a packet is correctly received or not based on PER
+        if (PER == 0.0){
             EV << "Packet is successfully received" << endl;
             return true;}
-        else if (packetErrorRate == 1.0){
+        else if (PER == 1.0){
             EV << "Packet is not received" << endl;
             return false;
             }
         else{
             double random_value= uniform(0,1);
             EV << "random_value = " << random_value << " \n";
-            if (random_value < packetErrorRate){
+            if (random_value < PER){
                 EV << "Packet is not received" << endl;
                 return false;}
             else{
