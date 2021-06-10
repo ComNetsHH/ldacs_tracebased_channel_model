@@ -15,12 +15,13 @@ import inet.node.inet.INetworkNode;
 network wireless
 {
     parameters:
+        int numHosts;
         @display("bgb=1900000,1900000;bgg=800,1,grey95");
 
         @figure[title](type=label; pos=0,-1; anchor=sw; color=darkblue);
 
         @figure[rcvdPkText](type=indicatorText; pos=380,20; anchor=w; font=,18; textFormat="packets received: %g"; initialValue=0);
-        @statistic[packetReceived](source=hostR.app[0].packetReceived; record=figure(count); targetFigure=rcvdPkText);
+        @statistic[packetReceived](source=host[1].app[0].packetReceived; record=figure(count); targetFigure=rcvdPkText);
     submodules:
         iIntegratedVisualizer: <default("IntegratedCanvasVisualizer")> like IIntegratedVisualizer {
             @display("p=720,113.90401");
@@ -31,11 +32,11 @@ network wireless
         configurator: Ipv4NetworkConfigurator {
             @display("p=720,200");
         }
-        hostT: <default("WirelessHost")> like INetworkNode {
+	   host[numHosts]: <default("WirelessHost")> like INetworkNode {
             @display("p=0,400");
         }
-        hostR: <default("WirelessHost")> like INetworkNode {
-            @display("p=459350,400");
-        }
+    //    hostR: <default("WirelessHost")> like INetworkNode {
+      //      @display("p=459350,400");
+       // }
 
 }
