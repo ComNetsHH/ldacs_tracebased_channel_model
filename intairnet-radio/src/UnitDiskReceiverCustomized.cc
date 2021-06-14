@@ -80,7 +80,6 @@ bool UnitDiskReceiverCustomized::computeIsReceptionSuccessful(const IListening *
     double Rx_position_x = Rx_position.x;
     double Rx_position_y = Rx_position.y;
     double Rx_position_z = Rx_position.z;
-    EV << " Current Position of Rx = " << Rx_position << " \n";
 
     //getting the position of the Tx
     auto transmission = check_and_cast<const IReception *>(reception)->getTransmission();
@@ -88,7 +87,6 @@ bool UnitDiskReceiverCustomized::computeIsReceptionSuccessful(const IListening *
     double Tx_position_x = Tx_position.x;
     double Tx_position_y = Tx_position.y;
     double Tx_position_z = Tx_position.z;
-    EV << " Current Position of Tx = " << Tx_position << " \n";
 
     //applying the formula sqrt((x_2-x_1)^2+(y_2-y_1)^2) to get the distance between Tx and Rx
     double distance = sqrt(pow((Rx_position_x-Tx_position_x),2)+ pow((Rx_position_y-Tx_position_y),2)+ pow((Rx_position_z-Tx_position_z),2));
@@ -102,11 +100,9 @@ bool UnitDiskReceiverCustomized::computeIsReceptionSuccessful(const IListening *
 
         //calculating path loss using -> 20 log10(d|km · f |MHz) + 32.4478|dB, for d < rh(h1, h2)
         double path_loss =(20*log10(distance*frequency))+32.4478;
-        EV << "path loss = " << path_loss << " \n";
 
         //calculating Received_Power
         Received_Power = Tx_power + Tx_antenna_gain - Tx_loss + Rx_antenna_gain - Rx_loss - path_loss;
-        EV << " Received Signal Power = " << Received_Power << " \n";
 
         //calculating Signal-to-Noise Ratio SNR(SNRmargin|dB)
         double SNR = Received_Power -(Noise_figure + Thermal_noise_density + 10*log10(Receiver_bandwidth))-10;
@@ -180,8 +176,6 @@ bool UnitDiskReceiverCustomized::computeIsReceptionSuccessful(const IListening *
         for(int k=0; k<line_number;k++){
             if(a[k][0]== SNR){
                 PER = a[k][1];
-                EV << "\ncorresponding PER is: ";
-                EV << a[k][1];
                 SNR_is_float =0;
                 break;
             }
@@ -193,14 +187,11 @@ bool UnitDiskReceiverCustomized::computeIsReceptionSuccessful(const IListening *
             //Separating the int part and decimal part of SNR
             double SNR_dec_part;
             int SNR_int_part = (int)SNR;
-            EV << " SNR_int_part= " << SNR_int_part << " \n";
             if(SNR >= 0){
                 SNR_dec_part = SNR - SNR_int_part;
-                EV << " SNR_dec_part= " << SNR_dec_part << " \n";
             }
             else{
-                SNR_dec_part = (SNR - SNR_int_part)*(-1);
-                EV << " SNR_dec_part= " << SNR_dec_part << " \n";
+                SNR_dec_part = SNR - SNR_int_part;
             }
 
             //finding the corresponding PER of the current SNR_int_part
@@ -208,30 +199,25 @@ bool UnitDiskReceiverCustomized::computeIsReceptionSuccessful(const IListening *
             for(k=0; k<line_number;k++){
                 if(a[k][0]== SNR_int_part){
                     PER = a[k][1];
-                    EV << "\ncorresponding PER is: ";
-                    EV << a[k][1];
                     break;
                 }
             }
 
             //finding the corresponding PER of the current SNR_decimal_part
-            double fraction_PER;
-            if(SNR_int_part >= 0 && SNR > 0){
-                fraction_PER=a[k+1][1]*SNR_dec_part;
-            }
-            else if(SNR_int_part >= 0 && SNR < 0){
-                fraction_PER=a[k-1][1]*SNR_dec_part;
-            }
-            else{
-                fraction_PER=a[k-1][1]*SNR_dec_part;
-            }
-            EV << " fraction_PER= " << fraction_PER << " \n";
+            if(SNR_dec_part >= 0.5)
+                PER = a[k+1][1];
+            else if(SNR_dec_part <= -0.5)
+                PER = a[k-1][1];
 
-            //adding the PER of the current  SNR_int_part and SNR_decimal_part
-            PER = (1-SNR_dec_part)*PER + fraction_PER;
-            EV << " final_PER= " << PER << " \n";
+            EV << " finally PER= " << PER << " \n";
 
         }
+
+        //calling the error Model to get packet error rate
+       // double packetErrorRate = errorModel->test_method(SNR);
+
+        //double packetErrorRate = errorModel->computePacketErrorRate(snir,part);
+       // EV << " packetErrorRate= " << packetErrorRate << " \n";
 
         //Deciding a packet is correctly received or not based on PER
         if (PER == 0.0){

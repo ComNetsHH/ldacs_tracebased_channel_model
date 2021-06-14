@@ -9,7 +9,8 @@ Define_Module(StochasticErrorModelCustomized);
 StochasticErrorModelCustomized::StochasticErrorModelCustomized() :
     packetErrorRate(NaN),
     bitErrorRate(NaN),
-    symbolErrorRate(NaN)
+    symbolErrorRate(NaN),
+    Signal_to_Noise_Ratio(NaN)
 {
 }
 
@@ -19,6 +20,7 @@ void StochasticErrorModelCustomized::initialize(int stage)
         packetErrorRate = par("packetErrorRate");
         bitErrorRate = par("bitErrorRate");
         symbolErrorRate = par("symbolErrorRate");
+        Signal_to_Noise_Ratio = par("Signal_to_Noise_Ratio");
     }
 }
 
@@ -28,10 +30,20 @@ std::ostream& StochasticErrorModelCustomized::printToStream(std::ostream& stream
         stream << "StochasticErrorModelCustomized"
                << "packetErrorRate = " << packetErrorRate
                << "bitErrorRate = " << bitErrorRate
-               << "symbolErrorRate = " << symbolErrorRate;
+               << "symbolErrorRate = " << symbolErrorRate
+               << "Signal_to_Noise_Ratio = " << Signal_to_Noise_Ratio;
     return stream;
 }
 
+/*
+double StochasticErrorModelCustomized::test_method(double Signal_to_Noise_Ratio)
+{
+    Enter_Method_Silent();
+    EV << "\nMessage from test_method" << endl;
+    EV << " \n";
+    return packetErrorRate;
+}
+*/
 
 double StochasticErrorModelCustomized::computePacketErrorRate(const ISnir *snir, IRadioSignal::SignalPart part) const
 {

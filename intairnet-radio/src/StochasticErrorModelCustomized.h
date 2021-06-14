@@ -15,25 +15,18 @@ class StochasticErrorModelCustomized : public ErrorModelBase
     double packetErrorRate;
     double bitErrorRate;
     double symbolErrorRate;
+    double Signal_to_Noise_Ratio;
 
   protected:
     virtual void initialize(int stage) override;
 
   public:
-    //adding new variable
-    double Radio_horizon = 922.06;
-    double Tx_power = 50;
-    double antenna_gain = 3;
-    double Tx_Rx_losses = 4;
-    double Noise_figure = 6;
-    double Thermal_noise_density = -174;
-    double Receiver_bandwidth = 500;
-    double distance_Tx_Rx;
-
-
     StochasticErrorModelCustomized();
 
     virtual std::ostream& printToStream(std::ostream& stream, int level) const override;
+
+    //additional method
+    //double test_method(double Signal_to_Noise_Ratio);
 
     virtual double computePacketErrorRate(const ISnir *snir, IRadioSignal::SignalPart part) const override;
     virtual double computeBitErrorRate(const ISnir *snir, IRadioSignal::SignalPart part) const override;

@@ -13,5 +13,6 @@ module StochasticErrorModelCustomized
         double packetErrorRate = default(nan); // a probability in the range [0, 1] or NaN if not set
         double bitErrorRate = default(nan);    // a probability in the range [0, 1] or NaN if not set
         double symbolErrorRate = default(nan); // a probability in the range [0, 1] or NaN if not set
+        double Signal_to_Noise_Ratio = default(nan);
         @class(StochasticErrorModelCustomized);
 }
