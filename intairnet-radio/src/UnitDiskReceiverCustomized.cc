@@ -31,15 +31,80 @@ UnitDiskReceiverCustomized::UnitDiskReceiverCustomized() :
     ignoreInterference(false)
 {
 }
+int line_number=0,how_many_time;
+double a[100][3];
 
 void UnitDiskReceiverCustomized::initialize(int stage)
 {
+    EV << "This is inside of initialize " <<" \n";
+
     ReceiverBase::initialize(stage);
     if (stage == INITSTAGE_LOCAL)
     {
         errorModel = dynamic_cast<IErrorModel *>(getSubmodule("errorModel"));
 
         ignoreInterference = par("ignoreInterference");
+
+        EV << "This is inside if statement of initialize " <<" \n";
+
+        how_many_time = 0;
+
+        //reading the .txt file
+             int f,g,i,j,q,n;
+             int z;
+
+             // Creating a text string, which is used to output the text file
+             string myText;
+
+             // Read from the text file
+             ifstream MyReadFile("per_snr.txt");
+
+             how_many_time++;
+             EV << "file per_snr is reading for " << how_many_time <<" \n";
+
+             // Use a while loop together with the getline() function to read the file line by line
+             while (getline (MyReadFile, myText)) {
+
+                 // finding the position of the first ","
+                 for( i = 0; i < myText.length(); i++){
+                     if(myText[i]==','){
+                         f = i;
+                         break;
+                     }
+                 }
+
+                 // finding the position of the second ","
+                 for( j = i+1; j < myText.length(); j++){
+                     if(myText[j]==','){
+                         g = j;
+                     }
+                 }
+
+                 char temp[f];
+                 char temp2[g-f];
+
+                 //asinging the SNR part of the text file into array a
+                 for( q=0;q<f;q++){
+                     temp[q]=myText[q];
+                 }
+                 temp[q]='\0';
+                 // convert string to double
+                 a[line_number][0]= std::stod(temp);
+                 q++;
+
+                 //asinging the SNR part of the text file into array a
+                 for( i=0;i<g-f-1;i++){
+                     temp2[i]=myText[q];
+                     q++;
+                 }
+                 temp2[i]='\0';
+                 a[line_number][1]= std::stod(temp2);
+                 line_number++;
+             }
+
+             // Closing the file
+             MyReadFile.close();
+
     }
 }
 
@@ -107,17 +172,19 @@ bool UnitDiskReceiverCustomized::computeIsReceptionSuccessful(const IListening *
         //calculating Signal-to-Noise Ratio SNR(SNRmargin|dB)
         double SNR = Received_Power -(Noise_figure + Thermal_noise_density + 10*log10(Receiver_bandwidth))-10;
         EV << "Signal-to-Noise Ratio, SNR= " << SNR << " \n";
-
+/*
         //reading the .txt file
         int line_number=0,f,g,i,j,q,n;
         int z;
 
         // Creating a text string, which is used to output the text file
         string myText;
-        double a[100][3];
 
         // Read from the text file
         ifstream MyReadFile("per_snr.txt");
+
+        how_many_time++;
+        EV << "file per_snr is reading for " << how_many_time <<" \n";
 
         // Use a while loop together with the getline() function to read the file line by line
         while (getline (MyReadFile, myText)) {
@@ -161,7 +228,7 @@ bool UnitDiskReceiverCustomized::computeIsReceptionSuccessful(const IListening *
 
         // Closing the file
         MyReadFile.close();
-
+*/
         //When SNR is > 10 we assume it equal to 10
         if(SNR > 10)
             SNR=10;
