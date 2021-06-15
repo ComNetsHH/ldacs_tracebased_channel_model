@@ -9,7 +9,7 @@ using namespace physicallayer;
 /**
  * Implements the StochasticErrorModelCustomized model, see the NED file for details.
  */
-class StochasticErrorModelCustomized : public ErrorModelBase
+class StochasticErrorModelCustomized: public ErrorModelBase
 {
   protected:
     double packetErrorRate;
@@ -18,7 +18,7 @@ class StochasticErrorModelCustomized : public ErrorModelBase
     double Signal_to_Noise_Ratio;
 
   protected:
-    virtual void initialize(int stage) override;
+    virtual void initialize(int stage)override;
 
   public:
     StochasticErrorModelCustomized();
@@ -26,8 +26,7 @@ class StochasticErrorModelCustomized : public ErrorModelBase
     virtual std::ostream& printToStream(std::ostream& stream, int level) const override;
 
     //additional method
-    //double test_method(double Signal_to_Noise_Ratio);
-
+    // double test_method(double Signal_to_Noise_Ratio);
     virtual double computePacketErrorRate(const ISnir *snir, IRadioSignal::SignalPart part) const override;
     virtual double computeBitErrorRate(const ISnir *snir, IRadioSignal::SignalPart part) const override;
     virtual double computeSymbolErrorRate(const ISnir *snir, IRadioSignal::SignalPart part) const override;

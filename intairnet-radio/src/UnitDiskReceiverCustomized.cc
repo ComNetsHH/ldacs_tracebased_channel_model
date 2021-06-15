@@ -10,7 +10,6 @@
 #include "inet/common/geometry/common/Quaternion.h"
 #include "inet/mobility/contract/IMobility.h"
 
-
 #include "inet/common/ModuleAccess.h"
 #include "inet/physicallayer/contract/packetlevel/IReception.h"
 #include "inet/physicallayer/contract/packetlevel/ITransmitter.h"
@@ -19,8 +18,8 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-using namespace std;
 
+using namespace std;
 using namespace inet;
 using namespace physicallayer;
 
@@ -31,13 +30,11 @@ UnitDiskReceiverCustomized::UnitDiskReceiverCustomized() :
     ignoreInterference(false)
 {
 }
-int line_number=0,how_many_time;
-double a[100][3];
+int line_number=0;
+double SNR_to_PER_array[100][3];
 
 void UnitDiskReceiverCustomized::initialize(int stage)
 {
-    EV << "This is inside of initialize " <<" \n";
-
     ReceiverBase::initialize(stage);
     if (stage == INITSTAGE_LOCAL)
     {
@@ -45,11 +42,7 @@ void UnitDiskReceiverCustomized::initialize(int stage)
 
         ignoreInterference = par("ignoreInterference");
 
-        EV << "This is inside if statement of initialize " <<" \n";
-
-        how_many_time = 0;
-
-        //reading the .txt file
+        //reading the .txt file to read SNR to PER
              int f,g,i,j,q,n;
              int z;
 
@@ -58,9 +51,6 @@ void UnitDiskReceiverCustomized::initialize(int stage)
 
              // Read from the text file
              ifstream MyReadFile("per_snr.txt");
-
-             how_many_time++;
-             EV << "file per_snr is reading for " << how_many_time <<" \n";
 
              // Use a while loop together with the getline() function to read the file line by line
              while (getline (MyReadFile, myText)) {
@@ -83,22 +73,22 @@ void UnitDiskReceiverCustomized::initialize(int stage)
                  char temp[f];
                  char temp2[g-f];
 
-                 //asinging the SNR part of the text file into array a
+                 //assigning the SNR part of the text file into array SNR_to_PER_array
                  for( q=0;q<f;q++){
                      temp[q]=myText[q];
                  }
                  temp[q]='\0';
                  // convert string to double
-                 a[line_number][0]= std::stod(temp);
+                 SNR_to_PER_array[line_number][0]= std::stod(temp);
                  q++;
 
-                 //asinging the SNR part of the text file into array a
+                 //asinging the SNR part of the text file into array SNR_to_PER_array
                  for( i=0;i<g-f-1;i++){
                      temp2[i]=myText[q];
                      q++;
                  }
                  temp2[i]='\0';
-                 a[line_number][1]= std::stod(temp2);
+                 SNR_to_PER_array[line_number][1]= std::stod(temp2);
                  line_number++;
              }
 
@@ -140,7 +130,7 @@ bool UnitDiskReceiverCustomized::computeIsReceptionSuccessful(const IListening *
 
     //getting the position of the Rx
     cModule *host = getContainingNode(this);
-    IMobility  *mod = check_and_cast<IMobility *>(host->getSubmodule("mobility"));
+    IMobility *mod = check_and_cast<IMobility *>(host->getSubmodule("mobility"));
     Coord Rx_position = mod->getCurrentPosition();
     double Rx_position_x = Rx_position.x;
     double Rx_position_y = Rx_position.y;
@@ -172,63 +162,7 @@ bool UnitDiskReceiverCustomized::computeIsReceptionSuccessful(const IListening *
         //calculating Signal-to-Noise Ratio SNR(SNRmargin|dB)
         double SNR = Received_Power -(Noise_figure + Thermal_noise_density + 10*log10(Receiver_bandwidth))-10;
         EV << "Signal-to-Noise Ratio, SNR= " << SNR << " \n";
-/*
-        //reading the .txt file
-        int line_number=0,f,g,i,j,q,n;
-        int z;
 
-        // Creating a text string, which is used to output the text file
-        string myText;
-
-        // Read from the text file
-        ifstream MyReadFile("per_snr.txt");
-
-        how_many_time++;
-        EV << "file per_snr is reading for " << how_many_time <<" \n";
-
-        // Use a while loop together with the getline() function to read the file line by line
-        while (getline (MyReadFile, myText)) {
-
-            // finding the position of the first ","
-            for( i = 0; i < myText.length(); i++){
-                if(myText[i]==','){
-                    f = i;
-                    break;
-                }
-            }
-
-            // finding the position of the second ","
-            for( j = i+1; j < myText.length(); j++){
-                if(myText[j]==','){
-                    g = j;
-                }
-            }
-
-            char temp[f];
-            char temp2[g-f];
-
-            //asinging the SNR part of the text file into array a
-            for( q=0;q<f;q++){
-                temp[q]=myText[q];
-            }
-            temp[q]='\0';
-            // convert string to double
-            a[line_number][0]= std::stod(temp);
-            q++;
-
-            //asinging the SNR part of the text file into array a
-            for( i=0;i<g-f-1;i++){
-                temp2[i]=myText[q];
-                q++;
-            }
-            temp2[i]='\0';
-            a[line_number][1]= std::stod(temp2);
-            line_number++;
-        }
-
-        // Closing the file
-        MyReadFile.close();
-*/
         //When SNR is > 10 we assume it equal to 10
         if(SNR > 10)
             SNR=10;
@@ -241,8 +175,8 @@ bool UnitDiskReceiverCustomized::computeIsReceptionSuccessful(const IListening *
         double PER;
         int SNR_is_float = 1;
         for(int k=0; k<line_number;k++){
-            if(a[k][0]== SNR){
-                PER = a[k][1];
+            if(SNR_to_PER_array[k][0]== SNR){
+                PER = SNR_to_PER_array[k][1];
                 SNR_is_float =0;
                 break;
             }
@@ -252,39 +186,31 @@ bool UnitDiskReceiverCustomized::computeIsReceptionSuccessful(const IListening *
         if(SNR_is_float==1){
 
             //Separating the int part and decimal part of SNR
-            double SNR_dec_part;
             int SNR_int_part = (int)SNR;
-            if(SNR >= 0){
-                SNR_dec_part = SNR - SNR_int_part;
-            }
-            else{
-                SNR_dec_part = SNR - SNR_int_part;
-            }
+            double SNR_dec_part = SNR - SNR_int_part;
 
             //finding the corresponding PER of the current SNR_int_part
             int k;
             for(k=0; k<line_number;k++){
-                if(a[k][0]== SNR_int_part){
-                    PER = a[k][1];
+                if(SNR_to_PER_array[k][0]== SNR_int_part){
+                    PER = SNR_to_PER_array[k][1];
                     break;
                 }
             }
 
-            //finding the corresponding PER of the current SNR_decimal_part
+            //finding the corresponding final PER of the current SNR depending on the SNR_decimal_part, weather it is > .5 or < .5
             if(SNR_dec_part >= 0.5)
-                PER = a[k+1][1];
+                PER = SNR_to_PER_array[k+1][1];
             else if(SNR_dec_part <= -0.5)
-                PER = a[k-1][1];
+                PER = SNR_to_PER_array[k-1][1];
 
             EV << " finally PER= " << PER << " \n";
 
         }
 
         //calling the error Model to get packet error rate
-       // double packetErrorRate = errorModel->test_method(SNR);
-
+        // double packetErrorRate = errorModel->test_method(SNR);
         //double packetErrorRate = errorModel->computePacketErrorRate(snir,part);
-       // EV << " packetErrorRate= " << packetErrorRate << " \n";
 
         //Deciding a packet is correctly received or not based on PER
         if (PER == 0.0){

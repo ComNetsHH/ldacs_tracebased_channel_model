@@ -6,6 +6,7 @@ using namespace inet;
 
 Define_Module(StochasticErrorModelCustomized);
 
+
 StochasticErrorModelCustomized::StochasticErrorModelCustomized() :
     packetErrorRate(NaN),
     bitErrorRate(NaN),
@@ -35,16 +36,16 @@ std::ostream& StochasticErrorModelCustomized::printToStream(std::ostream& stream
     return stream;
 }
 
-/*
-double StochasticErrorModelCustomized::test_method(double Signal_to_Noise_Ratio)
+
+/*double StochasticErrorModelCustomized::test_method(double Signal_to_Noise_Ratio)
 {
     Enter_Method_Silent();
     EV << "\nMessage from test_method" << endl;
     EV << " \n";
     return packetErrorRate;
 }
-*/
 
+*/
 double StochasticErrorModelCustomized::computePacketErrorRate(const ISnir *snir, IRadioSignal::SignalPart part) const
 {
     Enter_Method_Silent();
@@ -64,4 +65,3 @@ double StochasticErrorModelCustomized::computeSymbolErrorRate(const ISnir *snir,
     EV << "MYMESSAGE" << endl;
     return 0;
 }
-
