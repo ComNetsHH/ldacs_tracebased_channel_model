@@ -16,6 +16,22 @@ class UnitDiskReceiverCustomized : public ReceiverBase
 {
   protected:
     bool ignoreInterference;
+    double Receiver_bandwidth_in_KHz;
+    double Radio_horizon;
+    double Tx_power;
+    double Tx_antenna_gain;
+    double Rx_antenna_gain;
+    double Tx_loss;
+    double Rx_loss;
+    double Noise_figure;
+    double Thermal_noise_density;
+    double frequency;
+    mutable double SNR_New;
+
+  private:
+    double arrivalSignal;
+    cLongHistogram hopCountStats;
+    cOutVector hopCountVector;
 
   protected:
     virtual void initialize(int stage) override;
@@ -26,7 +42,7 @@ class UnitDiskReceiverCustomized : public ReceiverBase
     UnitDiskReceiverCustomized();
 
     virtual std::ostream& printToStream(std::ostream& stream, int level) const override;
-
+    void Foo(double b);
     virtual bool computeIsReceptionPossible(const IListening *listening, const IReception *reception, IRadioSignal::SignalPart part) const override;
     virtual bool computeIsReceptionSuccessful(const IListening *listening, const IReception *reception, IRadioSignal::SignalPart part, const IInterference *interference, const ISnir *snir) const override;
 

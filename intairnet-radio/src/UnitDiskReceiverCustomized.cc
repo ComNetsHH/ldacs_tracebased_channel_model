@@ -15,6 +15,7 @@
 #include "inet/physicallayer/contract/packetlevel/ITransmitter.h"
 #include "inet/physicallayer/contract/packetlevel/ITransmission.h"
 
+#include "inet/physicallayer/contract/packetlevel/ISnir.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -27,21 +28,72 @@ Define_Module(UnitDiskReceiverCustomized);
 
 UnitDiskReceiverCustomized::UnitDiskReceiverCustomized() :
     ReceiverBase(),
-    ignoreInterference(false)
+    ignoreInterference(false),
+    Receiver_bandwidth_in_KHz(NaN),
+    Radio_horizon(NaN),
+    Tx_power(NaN),
+    Tx_antenna_gain(NaN),
+    Rx_antenna_gain(NaN),
+    Tx_loss(NaN),
+    Rx_loss(NaN),
+    Noise_figure(NaN),
+    Thermal_noise_density(NaN),
+    frequency(NaN),
+    SNR_New(NaN)
+
+
+
+  //  Radio_horizon(NaN)
+  //  Tx_power(NaN),
+   // Tx_antenna_gain(NaN),
+   // Rx_antenna_gain(NaN),
+   // Tx_loss(NaN),
+   // Rx_loss(NaN),
+   // Noise_figure(NaN),
+   // Thermal_noise_density(NaN),
+   // frequency(NaN) //in MHz
 {
 }
 int line_number=0;
 double SNR_to_PER_array[100][3];
 
+//simsignal_t arrivalSignal;
+
+
+
 void UnitDiskReceiverCustomized::initialize(int stage)
 {
+    arrivalSignal = registerSignal("arrival");
     ReceiverBase::initialize(stage);
     if (stage == INITSTAGE_LOCAL)
     {
         errorModel = dynamic_cast<IErrorModel *>(getSubmodule("errorModel"));
 
         ignoreInterference = par("ignoreInterference");
+        Receiver_bandwidth_in_KHz = par("Receiver_bandwidth_in_KHz");
+        Radio_horizon = par("Radio_horizon");
+        Tx_power = par("Tx_power");
+        Tx_antenna_gain = par("Tx_antenna_gain");
+        Rx_antenna_gain = par("Rx_antenna_gain");
+        Tx_loss = par("Tx_loss");
+        Rx_loss = par("Rx_loss");
+        Noise_figure = par("Noise_figure");
+        Thermal_noise_density = par("Thermal_noise_density");
+        frequency = par("frequency");
+        SNR_New = par("SNR_New");
 
+
+
+//        Radio_horizon = par(Radio_horizon);
+      /*  Tx_power= par(Tx_power);
+        Tx_antenna_gain= par(Tx_antenna_gain);
+        Rx_antenna_gain= par(Rx_antenna_gain);
+        Tx_loss= par(Tx_loss);
+        Rx_loss= par(Rx_loss);
+        Noise_figure= par(Noise_figure);
+        Thermal_noise_density= par(Thermal_noise_density);
+        frequency= par(frequency); //in MHz
+*/
         //reading the .txt file to read SNR to PER
              int f,g,i,j,q,n;
              int z;
@@ -98,11 +150,47 @@ void UnitDiskReceiverCustomized::initialize(int stage)
     }
 }
 
+
+mutable void UnitDiskReceiverCustomized:: Foo(double b)
+   {
+    double arrivalSignal;
+    //arrivalSignal = registerSignal("arrival");
+    //emit(arrivalSignal, b);
+
+    hopCountVector.record(SNR_New);
+    hopCountStats.collect(SNR_New);
+    EV << " b =  " << b << " \n";
+
+   }
+
 std::ostream& UnitDiskReceiverCustomized::printToStream(std::ostream& stream, int level) const
 {
     stream << "UnitDiskReceiverCustomized";
     if (level <= PRINT_LEVEL_INFO)
-        stream << (ignoreInterference ? ", ignoring interference" : ", considering interference");
+        stream << (ignoreInterference ? ", ignoring interference" : ", considering interference")
+               << "Receiver_bandwidth_in_KHz = " << Receiver_bandwidth_in_KHz
+               << "Radio_horizon = " << Radio_horizon
+               << "Tx_power = " << Tx_power
+               << "Tx_antenna_gain = " << Tx_antenna_gain
+               << "Rx_antenna_gain = " << Rx_antenna_gain
+               << "Tx_loss = " << Tx_loss
+               << "Rx_loss = " << Rx_loss
+               << "Noise_figure = " << Noise_figure
+               << "Thermal_noise_density = " << Thermal_noise_density
+               << "frequency = " << frequency
+               << "SNR_New = " << SNR_New;
+
+
+  //             << "Radio_horizon = " << Radio_horizon;
+  /*             << "Tx_power = " << Tx_power
+               << "Tx_antenna_gain = " << Tx_antenna_gain
+               << "Rx_antenna_gain = " << Rx_antenna_gain
+               << "Tx_loss = " << Tx_loss
+               << "Rx_loss = " << Rx_loss
+               << "Noise_figure = " << Noise_figure
+               << "Thermal_noise_density = " << Thermal_noise_density
+               << "frequency = " << frequency; //in MHz
+*/
     return stream;
 }
 
@@ -113,20 +201,24 @@ bool UnitDiskReceiverCustomized::computeIsReceptionPossible(const IListening *li
 }
 
 
-bool UnitDiskReceiverCustomized::computeIsReceptionSuccessful(const IListening *listening, const IReception *reception, IRadioSignal::SignalPart part, const IInterference *interference, const ISnir *snir) const
+bool UnitDiskReceiverCustomized::computeIsReceptionSuccessful(const IListening *listening, const IReception *reception, IRadioSignal::SignalPart part, const IInterference *interference, const ISnir *snir)const
 {
-    //Defining the variables
-    double Radio_horizon = 922.06;
-    double Tx_power = 50;
-    double Tx_antenna_gain = 3;
-    double Rx_antenna_gain = 3;
-    double Tx_loss = 4;
-    double Rx_loss = 4;
-    double Noise_figure = 6;
-    double Thermal_noise_density = -174;
-    double Receiver_bandwidth_in_KHz = 500;//in KHz
+    double arrivalSignal;
+//    double Radio_horizon=922.06;
+   // double Tx_power=50;
+   // double Tx_antenna_gain=3 ;
+   // double Rx_antenna_gain=3 ;
+   // double Tx_loss=4 ;
+   // double Rx_loss=4;
+   // double Noise_figure=6;
+   // double Thermal_noise_density=-174;
+    //double frequency=1164 ;
+
     double Receiver_bandwidth = Receiver_bandwidth_in_KHz*1000;//in Hz
-    double frequency = 1164; //in MHz
+
+    EV << " Receiver_bandwidth " << Receiver_bandwidth << " \n";
+    EV << " Radio_horizon " << Radio_horizon << " \n";
+    EV << " Tx_power " << Tx_power << " \n";
 
     //getting the position of the Rx
     cModule *host = getContainingNode(this);
@@ -163,6 +255,14 @@ bool UnitDiskReceiverCustomized::computeIsReceptionSuccessful(const IListening *
         double SNR = Received_Power -(Noise_figure + Thermal_noise_density + 10*log10(Receiver_bandwidth))-10;
         EV << "Signal-to-Noise Ratio, SNR= " << SNR << " \n";
 
+        SNR_New = Received_Power -(Noise_figure + Thermal_noise_density + 10*log10(Receiver_bandwidth))-10;
+        EV << "Signal-to-Noise Ratio,   SNR_New= " <<   SNR_New << " \n";
+
+ //       hopCountVector.record(SNR_New);
+   //     hopCountStats.collect(SNR_New);
+    //    emit(arrivalSignal, SNR_New);
+
+        Foo(SNR_New);
         //When SNR is > 10 we assume it equal to 10
         if(SNR > 10)
             SNR=10;
@@ -208,9 +308,25 @@ bool UnitDiskReceiverCustomized::computeIsReceptionSuccessful(const IListening *
 
         }
 
+
+        //assigning the value of SNR to isnir
+        auto test_isnir = check_and_cast<const ISnir *>(snir)->getMax();
+        EV << "test_isnir= " << test_isnir << " \n";
+
+    //    auto noise = check_and_cast_nullable<const UnitDiskNoise *>(snir->getNoise());
+      //  EV << "noise= " << noise << " \n";
+
+     //   Coord Tx_position = transmission->getStartPosition();
+
+
+      //  ISnir test_snr= check_and_cast<const ISnir *>(snir)->getMax();
+        //Coord tt = (20, 20, 20);
+
+
         //calling the error Model to get packet error rate
         // double packetErrorRate = errorModel->test_method(SNR);
-        //double packetErrorRate = errorModel->computePacketErrorRate(snir,part);
+        double test_Signal_to_Noise_Ratio = errorModel->computePacketErrorRate(snir,part);
+        EV << "test_Signal_to_Noise_Ratio= " << test_Signal_to_Noise_Ratio << " \n";
 
         //Deciding a packet is correctly received or not based on PER
         if (PER == 0.0){

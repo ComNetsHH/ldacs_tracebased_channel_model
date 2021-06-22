@@ -16,6 +16,7 @@ class StochasticErrorModelCustomized: public ErrorModelBase
     double bitErrorRate;
     double symbolErrorRate;
     double Signal_to_Noise_Ratio;
+    double Signal_to_Noise_Ratio2;
 
   protected:
     virtual void initialize(int stage)override;
@@ -27,7 +28,7 @@ class StochasticErrorModelCustomized: public ErrorModelBase
 
     //additional method
     // double test_method(double Signal_to_Noise_Ratio);
-    virtual double computePacketErrorRate(const ISnir *snir, IRadioSignal::SignalPart part) const override;
+    virtual double computePacketErrorRate(const ISnir *test_snr, IRadioSignal::SignalPart part) const override;
     virtual double computeBitErrorRate(const ISnir *snir, IRadioSignal::SignalPart part) const override;
     virtual double computeSymbolErrorRate(const ISnir *snir, IRadioSignal::SignalPart part) const override;
 

@@ -11,7 +11,8 @@ StochasticErrorModelCustomized::StochasticErrorModelCustomized() :
     packetErrorRate(NaN),
     bitErrorRate(NaN),
     symbolErrorRate(NaN),
-    Signal_to_Noise_Ratio(NaN)
+    Signal_to_Noise_Ratio(NaN),
+    Signal_to_Noise_Ratio2(NaN)
 {
 }
 
@@ -22,6 +23,7 @@ void StochasticErrorModelCustomized::initialize(int stage)
         bitErrorRate = par("bitErrorRate");
         symbolErrorRate = par("symbolErrorRate");
         Signal_to_Noise_Ratio = par("Signal_to_Noise_Ratio");
+        Signal_to_Noise_Ratio2 = par("Signal_to_Noise_Ratio2");
     }
 }
 
@@ -32,7 +34,8 @@ std::ostream& StochasticErrorModelCustomized::printToStream(std::ostream& stream
                << "packetErrorRate = " << packetErrorRate
                << "bitErrorRate = " << bitErrorRate
                << "symbolErrorRate = " << symbolErrorRate
-               << "Signal_to_Noise_Ratio = " << Signal_to_Noise_Ratio;
+               << "Signal_to_Noise_Ratio = " << Signal_to_Noise_Ratio
+               << "Signal_to_Noise_Ratio2 = " << Signal_to_Noise_Ratio2;
     return stream;
 }
 
@@ -49,7 +52,15 @@ std::ostream& StochasticErrorModelCustomized::printToStream(std::ostream& stream
 double StochasticErrorModelCustomized::computePacketErrorRate(const ISnir *snir, IRadioSignal::SignalPart part) const
 {
     Enter_Method_Silent();
-    return packetErrorRate;
+ //   EV << "ISnir = " << ISnir << " \n";
+
+   // EV << "test_snr = " << test_snr << " \n";
+     EV << "Signal_to_Noise_Ratio = " << Signal_to_Noise_Ratio << " \n";
+     EV << "Signal_to_Noise_Ratio2 = " << Signal_to_Noise_Ratio2 << " \n";
+
+    //return 0;
+    return Signal_to_Noise_Ratio2;
+
 }
 
 double StochasticErrorModelCustomized::computeBitErrorRate(const ISnir *snir, IRadioSignal::SignalPart part) const

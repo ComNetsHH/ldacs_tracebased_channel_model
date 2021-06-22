@@ -10,6 +10,7 @@ class UnitDiskRadioCustomized : public Radio
 {
 
   protected:
+
     virtual void encapsulate(Packet *packet) const override;
     virtual void decapsulate(Packet *packet) const override;
 
