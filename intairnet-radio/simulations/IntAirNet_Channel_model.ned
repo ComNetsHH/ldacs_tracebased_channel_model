@@ -1,4 +1,3 @@
-
 package intairnet_radio.simulations;
 
 import inet.networklayer.configurator.ipv4.Ipv4NetworkConfigurator;
@@ -12,7 +11,7 @@ import inet.visualizer.contract.IIntegratedVisualizer;
 import inet.physicallayer.contract.packetlevel.IErrorModel;
 import inet.node.inet.INetworkNode;
 
-network wireless
+network IntAirNet_Channel_model
 {
     parameters:
         int numHosts;
@@ -23,9 +22,7 @@ network wireless
         @figure[rcvdPkText](type=indicatorText; pos=380,20; anchor=w; font=,18; textFormat="packets received: %g"; initialValue=0);
         @statistic[packetReceived](source=host[1].app[0].packetReceived; record=figure(count); targetFigure=rcvdPkText);
      
-	    @signal[arrival](type="long");
-        @statistic[InterArrivalTime](title="Inter Arrival Time"; source="arrival"; record=vector,stats; interpolationmode=none);
-        
+
     submodules:
         iIntegratedVisualizer: <default("IntegratedCanvasVisualizer")> like IIntegratedVisualizer {
             @display("p=720,113.90401");
@@ -37,10 +34,5 @@ network wireless
             @display("p=720,200");
         }
 	   host[numHosts]: <default("WirelessHost")> like INetworkNode {
-            @display("p=0,400");
         }
-    //    hostR: <default("WirelessHost")> like INetworkNode {
-      //      @display("p=459350,400");
-       // }
-
 }

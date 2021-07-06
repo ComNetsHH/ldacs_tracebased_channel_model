@@ -1,16 +1,9 @@
 package intairnet_radio;
-
 import inet.mobility.base.MobilityBase;
 import inet.mobility.base.MovingMobilityBase;
 import inet.mobility.contract.IMobility;
 import inet.physicallayer.contract.packetlevel.IErrorModel;
 import inet.physicallayer.contract.packetlevel.IReceiver;
-//
-// This receiver model receives a transmission succesfully within communication
-// range unless there's another interfering transmission within interference
-// range. It also supports an ideal communication channel with configuring the
-// receiver to ignore interfering transmissions.
-//
 
 module UnitDiskReceiverCustomized like IReceiver
 {
@@ -26,12 +19,12 @@ module UnitDiskReceiverCustomized like IReceiver
         double Noise_figure = default(nan); 
         double Thermal_noise_density = default(nan); 
         double frequency = default(nan); 
-        double SNR_New = default(nan); 
-          
+        double SNR_margin= default(nan);
+        
         @class(UnitDiskReceiverCustomized);
         @display("i=block/wrx;bgb=216.57999,104.649994");
     submodules:
-       errorModel: StochasticErrorModelCustomized {
+       errorModel: TraceBasedErrorModel {
             @display("p=39,29");
         }
         

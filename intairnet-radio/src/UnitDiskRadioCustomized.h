@@ -8,7 +8,6 @@ using namespace physicallayer;
 
 class UnitDiskRadioCustomized : public Radio
 {
-
   protected:
 
     virtual void encapsulate(Packet *packet) const override;
@@ -19,4 +18,3 @@ class UnitDiskRadioCustomized : public Radio
 };
 
 #endif // ifndef __INET_IDEALRADIO_H
-
