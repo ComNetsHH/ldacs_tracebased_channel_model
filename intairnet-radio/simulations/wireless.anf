@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scave:Analysis xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:scave="http://www.omnetpp.org/omnetpp/scave">
+  <inputs>
+    <inputs name="/intairnet-radio/simulations/results/wireless-*.vec"/>
+    <inputs name="/intairnet-radio/simulations/results/wireless-*.sca"/>
+  </inputs>
+  <datasets>
+    <datasets name="jj">
+      <items xsi:type="scave:Add" filterPattern="module(wireless.host[1].wlan[0].radio.receiver.errorModel)" type="VECTOR"/>
+      <items xsi:type="scave:ScatterChart" name="" xDataPattern="module(wireless.host[1].wlan[0].radio.receiver.errorModel) AND name(PER:vector)"/>
+      <items xsi:type="scave:LineChart" name="" lineNameFormat=""/>
+      <items xsi:type="scave:BarChart" name=""/>
+      <items xsi:type="scave:LineChart" name="" lineNameFormat=""/>
+    </datasets>
+    <datasets name="s">
+      <items xsi:type="scave:Add" filterPattern="module(wireless.host[1].wlan[0].radio.receiver.errorModel) AND name(#Packet_Error_Rate)"/>
+      <items xsi:type="scave:Add" filterPattern="module(wireless.host[1].wlan[0].radio.receiver.errorModel) AND name(#Signal-to-Noise_Ratio)"/>
+    </datasets>
+  </datasets>
+  <chartSheets>
+    <chartSheets name="default" charts="//@datasets/@datasets.0/@items.3 //@datasets/@datasets.0/@items.4 //@datasets/@datasets.0/@items.2 //@datasets/@datasets.0/@items.1"/>
+    <chartSheets name=""/>
+  </chartSheets>
+</scave:Analysis>
