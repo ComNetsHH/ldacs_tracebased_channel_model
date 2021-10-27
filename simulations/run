@@ -1,0 +1,4 @@
+#!/bin/sh
+cd `dirname $0`
+../src/omnet_new_radio_model -n .:../src $*
+# for shared lib, use: opp_run -l ../src/omnet_new_radio_model -n .:../src $*
