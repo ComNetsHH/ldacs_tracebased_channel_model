@@ -159,6 +159,7 @@ double TraceBasedErrorModel::snrToBitErrorRateMapping(double SNR)
 // TODO: map to corresponding bit error rate  for the given SNR
 //       use the trace file to find the Bit error rate
 //       Not yet implemented;
+    return 0:
 }
 double TraceBasedErrorModel::computePacketErrorRate(const ISnir *test_snir, IRadioSignal::SignalPart part) const
 {
